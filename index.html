@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CAPTAIN — Neon Hacker Portfolio</title>
+
+<style>
+:root{
+  --neon:#00ffd5;
+  --neon2:#00c8ff;
+  --neon3:#00fff2;
+  --muted:#bafff5;
+  --bg:#020304;
+  font-family:"Orbitron", sans-serif;
+}
+
+/* FORCE BLACK BACKGROUND */
+html, body {
+  background:#020304 !important;
+  color:white;
+  margin:0;
+  overflow-x:hidden;
+}
+
+/* PARTICLE CANVAS */
+#fxCanvas {
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  mix-blend-mode:screen;
+  z-index:1;
+}
+
+/* PAGE WRAPPER */
+.page{
+  position:relative;
+  z-index:5;
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+}
+
+/* ========================== */
+/*     HEADER (OLD STYLE)     */
+/* ========================== */
+
+.hero-upper{
+  text-align:center;
+  padding-top:50px;
+}
+
+.hero-title{
+  font-size:72px;
+  font-weight:900;
+  letter-spacing:6px;
+  color:var(--neon);
+  text-shadow:
+    0 0 20px var(--neon),
+    0 0 35px var(--neon2),
+    0 0 80px var(--neon3);
+}
+
+.hero-subtitle{
+  margin-top:10px;
+  color:#9afff1;
+  font-size:16px;
+}
+
+/* TG BUTTON */
+.hero-tg{
+  margin-top:20px;
+  padding:12px 26px;
+  border-radius:28px;
+  background:rgba(0,255,213,0.1);
+  color:var(--neon);
+  border:1px solid rgba(0,255,213,0.4);
+  font-weight:700;
+  cursor:pointer;
+  transition:.25s;
+}
+.hero-tg:hover{
+  transform:scale(1.06);
+  box-shadow:0 0 18px var(--neon2);
+}
+
+.hero-birth{
+  margin-top:12px;
+  color:#cffff4;
+  font-size:16px;
+}
+
+/* ABOUT BOX */
+.about-box{
+  margin:auto;
+  margin-top:30px;
+  max-width:620px;
+  background:rgba(0,0,0,0.45);
+  border-radius:18px;
+  border:1px solid rgba(0,255,213,0.12);
+  box-shadow:
+    0 0 20px rgba(0,255,213,0.1),
+    inset 0 0 20px rgba(0,255,213,0.06);
+  padding:22px;
+  text-align:left;
+}
+
+.about-box h3{
+  margin:0;
+  color:#aefff5;
+  font-size:22px;
+  margin-bottom:8px;
+}
+.about-box p{
+  margin:0;
+  font-size:15px;
+  line-height:1.6;
+  color:#ddfff7;
+}
+
+/* ===================================== */
+/*               SKILLS                  */
+/* ===================================== */
+
+.skills-wrap{
+  margin-top:60px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.skill-top{
+  display:flex;
+  justify-content:center;
+  margin-bottom:30px;
+}
+
+.skill-row{
+  display:flex;
+  justify-content:center;
+  gap:80px;
+}
+
+.skill{
+  width:210px;
+  height:210px;
+  padding:18px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.02);
+  position:relative;
+  overflow:visible;
+}
+
+/* SVG CIRCLES */
+.skill svg{
+  width:100%;
+  height:100%;
+  transform:rotate(-90deg);
+}
+
+.bg-ring{
+  stroke:rgba(255,255,255,0.08);
+  stroke-width:12;
+  fill:none;
+}
+.progress{
+  stroke:var(--neon);
+  stroke-width:12;
+  fill:none;
+  stroke-linecap:round;
+  stroke-dasharray:565;
+  stroke-dashoffset:565;
+  filter:
+    drop-shadow(0 0 10px var(--neon))
+    drop-shadow(0 0 18px var(--neon2));
+  transition:stroke-dashoffset 1.4s ease;
+}
+
+.pct{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-60%);
+  font-size:28px;
+  font-weight:900;
+  color:var(--neon3);
+  text-shadow:0 0 18px var(--neon2);
+}
+.label{
+  position:absolute;
+  top:88%;
+  left:50%;
+  transform:translateX(-50%);
+  color:var(--muted);
+  font-weight:700;
+}
+
+/* MOBILE SKILL STACK */
+@media(max-width:760px){
+  .skill-row{
+    flex-direction:column;
+    gap:34px;
+  }
+  .skill{
+    width:170px;
+    height:170px;
+    padding:10px;
+  }
+}
+
+/* ========================== */
+/*       COLLAB SECTION       */
+/* ========================== */
+
+.collab-box{
+  margin-top:50px;
+  padding:25px;
+  background:rgba(0,255,213,0.04);
+  border-radius:20px;
+  border:1px solid rgba(0,255,213,0.15);
+  text-align:center;
+  box-shadow:0 0 20px rgba(0,255,213,0.1);
+}
+
+.collab-title{
+  font-size:22px;
+  color:var(--neon3);
+  margin-bottom:16px;
+  text-shadow:0 0 14px var(--neon2);
+}
+
+.socials{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+}
+
+.icon-btn{
+  width:60px;
+  height:60px;
+  border-radius:16px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(0,255,213,0.35);
+  display:grid;
+  place-items:center;
+  transition:.25s;
+}
+.icon-btn:hover{
+  transform:scale(1.15);
+  box-shadow:0 0 16px var(--neon2);
+}
+.icon-btn img{
+  width:32px;
+  filter:drop-shadow(0 0 8px var(--neon));
+}
+</style>
+</head>
+
+<body>
+
+<!-- PARTICLE CANVAS -->
+<canvas id="fxCanvas"></canvas>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <section class="hero-upper">
+    <h1 class="hero-title">CAPTAIN</h1>
+
+    <p class="hero-subtitle">Bug Hunter • Web Developer • Creator • Coding Enthusiast</p>
+
+    <button class="hero-tg" onclick="copyTg()">@CAPTAINPAPAJI</button>
+
+    <p class="hero-birth">
+      Birthdate: <b>17 Oct 2006</b> — Age: <span id="age"></span>
+    </p>
+
+    <div class="about-box">
+      <h3>About</h3>
+      <p>
+        CAPTAIN — I hunt bugs, build web stuff, create IDs, and code.
+        I love dark neon UI and hacking aesthetic.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- SKILLS -->
+  <div class="skills-wrap">
+
+    <div class="skill-top">
+      <div class="skill" data-percent="50">
+        <svg viewBox="0 0 220 220">
+          <circle class="bg-ring" cx="110" cy="110" r="86"/>
+          <circle class="progress" cx="110" cy="110" r="86"/>
+        </svg>
+        <div class="pct">50%</div>
+        <div class="label">Python</div>
+      </div>
+    </div>
+
+    <div class="skill-row">
+      <div class="skill" data-percent="60">
+        <svg viewBox="0 0 220 220">
+          <circle class="bg-ring" cx="110" cy="110" r="86"/>
+          <circle class="progress" cx="110" cy="110" r="86"/>
+        </svg>
+        <div class="pct">60%</div>
+        <div class="label">HTML</div>
+      </div>
+
+      <div class="skill" data-percent="70">
+        <svg viewBox="0 0 220 220">
+          <circle class="bg-ring" cx="110" cy="110" r="86"/>
+          <circle class="progress" cx="110" cy="110" r="86"/>
+        </svg>
+        <div class="pct">70%</div>
+        <div class="label">C Language</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- COLLAB -->
+  <div class="collab-box">
+    <div class="collab-title">COLLAB WITH ME</div>
+    <div class="socials">
+      <a href="https://t.me/CAPTAINPAPAJI" target="_blank" class="icon-btn">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png">
+      </a>
+      <a href="https://instagram.com/bong_moder" target="_blank" class="icon-btn">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
+      </a>
+      <a href="https://twitter.com" target="_blank" class="icon-btn">
+        <img src="https://cdn-icons-png.flaticon.com/512/5969/5969020.png">
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* COPY TG */
+function copyTg(){
+  navigator.clipboard.writeText("@CAPTAINPAPAJI");
+  alert("Copied: @CAPTAINPAPAJI");
+}
+
+/* AUTO AGE */
+(function(){
+  const el=document.getElementById("age");
+  const b=new Date(2006,9,17);
+  function calc(){
+    const n=new Date();
+    let a=n.getFullYear()-b.getFullYear();
+    const m=n.getMonth()-b.getMonth();
+    if(m<0||(m===0&&n.getDate()<b.getDate())) a--;
+    el.textContent=a;
+  }
+  calc();
+})();
+
+/* CIRCLE ANIMATION */
+(function(){
+  const r=86, c=2*Math.PI*r;
+  document.querySelectorAll('.skill').forEach((el,idx)=>{
+    const p=+el.dataset.percent;
+    const circ=el.querySelector('.progress');
+    circ.style.strokeDasharray=c;
+    setTimeout(()=>{
+      circ.style.strokeDashoffset=c-(c*p/100);
+    },400+idx*200);
+  });
+})();
+
+/* NEON SNOWFALL */
+(function(){
+  const cvs=document.getElementById("fxCanvas");
+  const ctx=cvs.getContext("2d");
+  let w,h,DPR;
+
+  function resize(){
+    DPR=Math.min(2,window.devicePixelRatio||1);
+    w=innerWidth;h=innerHeight;
+    cvs.width=w*DPR;cvs.height=h*DPR;
+    cvs.style.width=w+"px";cvs.style.height=h+"px";
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  resize();
+  window.addEventListener("resize",resize);
+
+  const P=[];
+  const MAX=180;
+  const rnd=(a,b)=>Math.random()*(b-a)+a;
+
+  function spawn(){
+    P.push({
+      x:rnd(0,w),
+      y:-10,
+      r:rnd(1.2,4),
+      s:rnd(0.3,0.8),
+      glow:rnd(8,20),
+      hue:rnd(160,200)
+    });
+  }
+
+  for(let i=0;i<80;i++) spawn();
+
+  function loop(){
+    ctx.clearRect(0,0,w,h);
+    if(P.length<MAX) spawn();
+
+    for(let i=P.length-1;i>=0;i--){
+      const p=P[i];
+      p.y += p.s*7;
+      p.x += Math.sin(p.y*0.02)*0.7;
+
+      const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.glow);
+      g.addColorStop(0,`hsla(${p.hue},100%,70%,0.25)`);
+      g.addColorStop(1,`hsla(${p.hue},100%,50%,0)`);
+
+      ctx.fillStyle=g;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,7);
+      ctx.fill();
+
+      if(p.y>h+20) P.splice(i,1);
+    }
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+</script>
+
+</body>
+</html>
